@@ -205,8 +205,14 @@ class ConfigWindow(QMainWindow):
     
     def create_prize_group(self) -> QGroupBox:
         """创建奖项设置组"""
-        group = QGroupBox("奖项设置")
+        group = QGroupBox("奖项设置 (权重代表概率比例，不必总和为100)")
         layout = QVBoxLayout()
+        
+        # 问题2说明：添加权重说明标签
+        info_label = QLabel("💡 提示：权重表示相对概率，例如 10/150 表示该奖项占 10/(所有权重之和) 的概率")
+        info_label.setStyleSheet("color: #666; font-size: 9pt; padding: 5px;")
+        info_label.setWordWrap(True)
+        layout.addWidget(info_label)
         
         # 奖项表格
         self.prize_table = QTableWidget()
@@ -355,6 +361,9 @@ class ConfigWindow(QMainWindow):
         if not self.update_config_from_ui():
             return
         
+        # 问题1修复：启动活动前自动保存配置
+        self.config_service.save_config(self.current_config)
+        
         # 停止当前的音量监测
         if self.is_monitoring:
             self.stop_monitoring()
@@ -474,5 +483,9 @@ class ConfigWindow(QMainWindow):
         
         if self.audio_service:
             self.audio_service.stop()
+        
+        # 问题1修复：关闭前自动保存当前配置
+        if self.update_config_from_ui():
+            self.config_service.save_config(self.current_config)
         
         event.accept()

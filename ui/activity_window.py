@@ -1,12 +1,14 @@
 """
 活动界面窗口
 Phase 3: 实现二层活动页与抽奖逻辑
+Phase 4: 增强揭晓动画与视觉效果
 """
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QLabel, QPushButton, QProgressBar, QMessageBox, QFrame
+    QLabel, QPushButton, QProgressBar, QMessageBox, QFrame,
+    QGraphicsBlurEffect, QGraphicsOpacityEffect
 )
-from PySide6.QtCore import Qt, QTimer, Signal
+from PySide6.QtCore import Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
 from PySide6.QtGui import QFont, QColor, QPalette
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
@@ -32,6 +34,11 @@ class ActivityWindow(QMainWindow):
         self.current_result: PrizeItem = None
         self.reveal_progress = 0.0  # 揭晓进度 0.0 - 1.0
         self.is_revealed = False  # 是否已完全揭晓
+        
+        # Phase 4: 图形效果对象
+        self.blur_effect = None
+        self.opacity_effect = None
+        self.reveal_animation = None
         
         # UI更新定时器
         self.update_timer = QTimer()
@@ -178,6 +185,9 @@ class ActivityWindow(QMainWindow):
         """)
         layout.addWidget(self.result_label)
         
+        # Phase 4: 初始化图形效果
+        self.init_graphics_effects()
+        
         return frame
     
     def create_volume_frame(self) -> QFrame:
@@ -271,6 +281,20 @@ class ActivityWindow(QMainWindow):
         
         return frame
     
+    def init_graphics_effects(self):
+        """Phase 4: 初始化图形效果"""
+        # 模糊效果
+        self.blur_effect = QGraphicsBlurEffect()
+        self.blur_effect.setBlurRadius(30)  # 初始模糊半径
+        
+        # 透明度效果
+        self.opacity_effect = QGraphicsOpacityEffect()
+        self.opacity_effect.setOpacity(0.3)  # 初始透明度
+        
+        # 将效果应用到结果标签
+        # 注意：一个控件只能有一个图形效果，我们将优先使用模糊效果
+        self.result_label.setGraphicsEffect(self.blur_effect)
+    
     def start_new_round(self):
         """开始新一轮抽奖"""
         # 重置状态
@@ -281,7 +305,7 @@ class ActivityWindow(QMainWindow):
         # 预抽奖
         self.current_result = self.lottery_service.draw()
         
-        # 重置UI
+        # Phase 4: 重置UI和图形效果
         self.result_label.setText("???")
         self.result_label.setStyleSheet("""
             QLabel {
@@ -289,9 +313,12 @@ class ActivityWindow(QMainWindow):
                 background-color: white;
                 border-radius: 10px;
                 padding: 20px;
-                opacity: 0.3;
             }
         """)
+        
+        # 重置图形效果
+        self.reset_graphics_effects()
+        
         self.progress_bar.setValue(0)
         self.progress_percent_label.setText("0%")
         self.reset_button.setEnabled(False)
@@ -362,8 +389,9 @@ class ActivityWindow(QMainWindow):
         self.progress_bar.setValue(progress_percent)
         self.progress_percent_label.setText(f"{progress_percent}%")
         
-        # 更新结果显示（根据进度调整可见度）
+        # Phase 4: 更新结果显示和图形效果
         self.update_result_display()
+        self.update_reveal_effects()
     
     def update_progress(self):
         """更新揭晓进度（逻辑更新）"""
@@ -395,45 +423,89 @@ class ActivityWindow(QMainWindow):
             return
         
         if self.is_revealed:
-            # 完全揭晓：清晰显示
-            self.result_label.setText(self.current_result.name)
+            # 完全揭晓：清晰显示（在 on_fully_revealed 中处理）
+            pass
+        else:
+            # 问题3优化：调整阶段阈值，90%才能看清文字
+            if self.reveal_progress < 0.25:
+                # 进度 < 25%: 显示问号
+                self.result_label.setText("???")
+            elif self.reveal_progress < 0.50:
+                # 进度 25-50%: 显示部分遮挡的问号
+                self.result_label.setText("? ? ?")
+            elif self.reveal_progress < 0.75:
+                # 进度 50-75%: 开始显示文字长度提示
+                text_length = len(self.current_result.name)
+                self.result_label.setText("□" * text_length)
+            elif self.reveal_progress < 0.90:
+                # 进度 75-90%: 显示模糊的文字（用特殊字符替换部分文字）
+                text = self.current_result.name
+                # 每隔一个字符用问号替换
+                obscured = ''.join([c if i % 2 == 0 else '?' for i, c in enumerate(text)])
+                self.result_label.setText(obscured)
+            else:
+                # 进度 ≥ 90%: 显示实际文字（配合模糊效果）
+                self.result_label.setText(self.current_result.name)
+            
+            # 保持基础样式
             self.result_label.setStyleSheet("""
                 QLabel {
                     color: #000;
-                    background-color: #FFEB3B;
-                    border-radius: 10px;
-                    padding: 20px;
-                    border: 3px solid #FFC107;
-                }
-            """)
-        else:
-            # 部分揭晓：根据进度显示
-            if self.reveal_progress > 0.3:
-                # 进度超过30%，开始显示文字
-                self.result_label.setText(self.current_result.name)
-            else:
-                # 进度低于30%，显示问号
-                self.result_label.setText("???")
-            
-            # 根据进度调整透明度（Phase 4 将实现更复杂的效果）
-            # 这里使用简单的颜色深度变化
-            opacity = int(self.reveal_progress * 255)
-            bg_color = f"rgba(255, 255, 255, {opacity})"
-            text_color = f"rgba(0, 0, 0, {opacity})"
-            
-            self.result_label.setStyleSheet(f"""
-                QLabel {{
-                    color: {text_color};
                     background-color: white;
                     border-radius: 10px;
                     padding: 20px;
-                }}
+                }
             """)
+    
+    def update_reveal_effects(self):
+        """Phase 4: 根据揭晓进度更新图形效果"""
+        if not self.blur_effect or self.is_revealed:
+            return
+        
+        # 计算模糊半径：从30降到0
+        # progress: 0.0 -> 1.0, blur: 30 -> 0
+        blur_radius = 30 * (1.0 - self.reveal_progress)
+        self.blur_effect.setBlurRadius(max(0, blur_radius))
+        
+        # 额外的视觉反馈：根据进度改变背景色
+        if self.reveal_progress < 0.3:
+            bg_color = "#f0f0f0"  # 灰白色
+        elif self.reveal_progress < 0.6:
+            bg_color = "#e8f4f8"  # 淡蓝色
+        elif self.reveal_progress < 0.9:
+            bg_color = "#fff9e6"  # 淡黄色
+        else:
+            bg_color = "#fffacd"  # 柠檬黄
+        
+        self.result_label.setStyleSheet(f"""
+            QLabel {{
+                color: #000;
+                background-color: {bg_color};
+                border-radius: 10px;
+                padding: 20px;
+            }}
+        """)
+    
+    def reset_graphics_effects(self):
+        """Phase 4: 重置图形效果到初始状态"""
+        # Bug修复：重新创建模糊效果对象（防止对象已被删除的问题）
+        self.blur_effect = QGraphicsBlurEffect()
+        self.blur_effect.setBlurRadius(30)
+        
+        # 应用效果到结果标签
+        self.result_label.setGraphicsEffect(self.blur_effect)
     
     def on_fully_revealed(self):
         """完全揭晓时的处理"""
         self.is_revealed = True
         self.lottery_service.lock_result()
+        
+        # Phase 4: 移除模糊效果，显示最终结果
+        self.result_label.setGraphicsEffect(None)
+        self.result_label.setText(self.current_result.name)
+        
+        # Phase 4: 添加揭晓动画
+        self.play_reveal_animation()
         
         # 更新状态提示
         self.status_label.setText(f"🎊 恭喜！抽中了: {self.current_result.name} 🎊")
@@ -453,6 +525,47 @@ class ActivityWindow(QMainWindow):
         
         # 播放提示音（Phase 5 可选功能）
         # TODO: 添加音效
+    
+    def play_reveal_animation(self):
+        """Phase 4: 播放揭晓完成动画"""
+        # 创建临时的透明度效果用于动画
+        temp_opacity_effect = QGraphicsOpacityEffect()
+        temp_opacity_effect.setOpacity(0.3)
+        self.result_label.setGraphicsEffect(temp_opacity_effect)
+        
+        # 创建透明度动画：从0.3淡入到1.0
+        self.reveal_animation = QPropertyAnimation(temp_opacity_effect, b"opacity")
+        self.reveal_animation.setDuration(600)  # 600ms动画
+        self.reveal_animation.setStartValue(0.3)
+        self.reveal_animation.setEndValue(1.0)
+        self.reveal_animation.setEasingCurve(QEasingCurve.OutCubic)
+        
+        # 动画结束后应用最终样式
+        self.reveal_animation.finished.connect(self.apply_final_reveal_style)
+        
+        # 启动动画
+        self.reveal_animation.start()
+    
+    def apply_final_reveal_style(self):
+        """Phase 4: 应用揭晓完成后的最终样式"""
+        # 移除动画效果
+        self.result_label.setGraphicsEffect(None)
+        
+        # 应用高亮样式
+        self.result_label.setStyleSheet("""
+            QLabel {
+                color: #000;
+                background-color: #FFEB3B;
+                border-radius: 10px;
+                padding: 20px;
+                border: 4px solid #FFC107;
+            }
+        """)
+        
+        # 清理动画对象
+        if self.reveal_animation:
+            self.reveal_animation.deleteLater()
+            self.reveal_animation = None
     
     def on_reset(self):
         """开始下一轮"""
@@ -487,6 +600,10 @@ class ActivityWindow(QMainWindow):
         """停止活动"""
         self.update_timer.stop()
         self.progress_timer.stop()
+        
+        # Phase 4: 停止动画
+        if self.reveal_animation and self.reveal_animation.state() == QPropertyAnimation.Running:
+            self.reveal_animation.stop()
         
         if self.audio_service:
             self.audio_service.stop()
