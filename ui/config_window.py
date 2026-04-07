@@ -355,21 +355,12 @@ class ConfigWindow(QMainWindow):
         if not self.update_config_from_ui():
             return
         
-        # 发送信号（Phase 3 将实现界面切换）
-        reply = QMessageBox.information(
-            self, 
-            "Phase 1 提示", 
-            f"配置验证通过！\n\n当前配置：\n"
-            f"- 麦克风索引: {self.current_config.mic_index}\n"
-            f"- 音量阈值: {self.current_config.volume_threshold}\n"
-            f"- 揭晓时长: {self.current_config.reveal_seconds}秒\n"
-            f"- 回退时长: {self.current_config.decay_seconds}秒\n"
-            f"- 奖项数量: {len(self.current_config.items)}\n\n"
-            f"活动界面将在 Phase 3 中实现。",
-            QMessageBox.Ok
-        )
+        # 停止当前的音量监测
+        if self.is_monitoring:
+            self.stop_monitoring()
         
-        # self.start_clicked.emit(self.current_config)
+        # Phase 3: 发送信号切换到活动界面
+        self.start_clicked.emit(self.current_config)
     
     def on_mic_changed(self, index: int):
         """麦克风选择改变"""
