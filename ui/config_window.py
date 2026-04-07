@@ -1,17 +1,20 @@
 """
 配置界面窗口
+Phase 2: 添加实时音量监测功能
 """
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QLabel, QComboBox, QDoubleSpinBox, QPushButton,
     QTableWidget, QTableWidgetItem, QHeaderView,
-    QMessageBox, QGroupBox, QFormLayout, QSpinBox
+    QMessageBox, QGroupBox, QFormLayout, QSpinBox,
+    QProgressBar
 )
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt, Signal, QTimer
 from PySide6.QtGui import QFont
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
 from services.config_service import ConfigService
+from services.audio_service import AudioService
 
 
 class ConfigWindow(QMainWindow):
@@ -24,6 +27,14 @@ class ConfigWindow(QMainWindow):
         super().__init__()
         self.config_service = ConfigService()
         self.current_config = self.config_service.load_config()
+        
+        # Phase 2: 音频服务
+        self.audio_service = None
+        self.is_monitoring = False
+        
+        # 用于更新UI的定时器
+        self.update_timer = QTimer()
+        self.update_timer.timeout.connect(self.update_volume_display)
         
         self.init_ui()
         self.load_config_to_ui()
@@ -94,19 +105,68 @@ class ConfigWindow(QMainWindow):
     def create_mic_group(self) -> QGroupBox:
         """创建麦克风设置组"""
         group = QGroupBox("麦克风设置")
-        layout = QFormLayout()
+        layout = QVBoxLayout()
         
         # 麦克风选择
+        form_layout = QFormLayout()
         self.mic_combo = QComboBox()
+        self.mic_combo.currentIndexChanged.connect(self.on_mic_changed)
+        
         mic_list = self.config_service.get_microphone_list()
         for idx, name in mic_list:
             self.mic_combo.addItem(name, idx)
-        layout.addRow("麦克风设备:", self.mic_combo)
+        form_layout.addRow("麦克风设备:", self.mic_combo)
+        layout.addLayout(form_layout)
         
-        # Phase 1 暂不添加音量测试功能
-        note_label = QLabel("注: 音量测试功能将在 Phase 2 中添加")
-        note_label.setStyleSheet("color: gray; font-size: 10pt;")
-        layout.addRow("", note_label)
+        # Phase 2: 实时音量监测
+        volume_layout = QVBoxLayout()
+        
+        # 音量标签
+        volume_label_layout = QHBoxLayout()
+        volume_label_layout.addWidget(QLabel("实时音量:"))
+        self.volume_value_label = QLabel("0.00")
+        self.volume_value_label.setStyleSheet("font-weight: bold;")
+        volume_label_layout.addWidget(self.volume_value_label)
+        volume_label_layout.addStretch()
+        volume_layout.addLayout(volume_label_layout)
+        
+        # 音量进度条
+        self.volume_bar = QProgressBar()
+        self.volume_bar.setRange(0, 100)
+        self.volume_bar.setValue(0)
+        self.volume_bar.setTextVisible(False)
+        self.volume_bar.setStyleSheet("""
+            QProgressBar {
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                background-color: #f0f0f0;
+                height: 20px;
+            }
+            QProgressBar::chunk {
+                background-color: #4CAF50;
+                border-radius: 2px;
+            }
+        """)
+        volume_layout.addWidget(self.volume_bar)
+        
+        # 阈值指示线（在进度条下方显示）
+        threshold_layout = QHBoxLayout()
+        self.threshold_indicator = QLabel("← 阈值位置")
+        self.threshold_indicator.setStyleSheet("color: #f44336; font-size: 9pt;")
+        threshold_layout.addStretch()
+        threshold_layout.addWidget(self.threshold_indicator)
+        volume_layout.addLayout(threshold_layout)
+        
+        layout.addLayout(volume_layout)
+        
+        # 测试按钮
+        button_layout = QHBoxLayout()
+        self.test_button = QPushButton("开始测试")
+        self.test_button.setMaximumWidth(120)
+        self.test_button.clicked.connect(self.on_toggle_test)
+        button_layout.addWidget(self.test_button)
+        button_layout.addStretch()
+        layout.addLayout(button_layout)
         
         group.setLayout(layout)
         return group
@@ -310,3 +370,118 @@ class ConfigWindow(QMainWindow):
         )
         
         # self.start_clicked.emit(self.current_config)
+    
+    def on_mic_changed(self, index: int):
+        """麦克风选择改变"""
+        if self.is_monitoring and self.audio_service:
+            # 如果正在监测，切换设备
+            device_index = self.mic_combo.currentData()
+            try:
+                self.audio_service.set_device(device_index)
+            except Exception as e:
+                QMessageBox.warning(self, "设备切换失败", f"无法切换到选中的麦克风设备:\n{str(e)}")
+    
+    def on_toggle_test(self):
+        """切换音量测试状态"""
+        if not self.is_monitoring:
+            self.start_monitoring()
+        else:
+            self.stop_monitoring()
+    
+    def start_monitoring(self):
+        """开始音量监测"""
+        try:
+            device_index = self.mic_combo.currentData()
+            
+            # 创建音频服务
+            if not self.audio_service:
+                self.audio_service = AudioService(device_index=device_index)
+            else:
+                self.audio_service.set_device(device_index)
+            
+            # 启动音频采集
+            self.audio_service.start()
+            
+            # 启动UI更新定时器（每50ms更新一次）
+            self.update_timer.start(50)
+            
+            self.is_monitoring = True
+            self.test_button.setText("停止测试")
+            self.test_button.setStyleSheet("background-color: #f44336; color: white;")
+            
+        except Exception as e:
+            QMessageBox.critical(self, "启动失败", f"无法启动音量监测:\n{str(e)}")
+            self.is_monitoring = False
+    
+    def stop_monitoring(self):
+        """停止音量监测"""
+        if self.audio_service:
+            self.audio_service.stop()
+        
+        self.update_timer.stop()
+        self.is_monitoring = False
+        
+        # 重置UI
+        self.volume_bar.setValue(0)
+        self.volume_value_label.setText("0.00")
+        self.test_button.setText("开始测试")
+        self.test_button.setStyleSheet("")
+    
+    def update_volume_display(self):
+        """更新音量显示"""
+        if not self.audio_service or not self.is_monitoring:
+            return
+        
+        # 获取平滑后的音量值
+        volume = self.audio_service.get_smoothed_volume()
+        
+        # 更新进度条（0-100）
+        self.volume_bar.setValue(int(volume * 100))
+        
+        # 更新数值标签
+        self.volume_value_label.setText(f"{volume:.2f}")
+        
+        # 根据阈值改变进度条颜色
+        threshold = self.threshold_spin.value()
+        if volume >= threshold:
+            # 超过阈值，显示绿色
+            self.volume_bar.setStyleSheet("""
+                QProgressBar {
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    background-color: #f0f0f0;
+                    height: 20px;
+                }
+                QProgressBar::chunk {
+                    background-color: #4CAF50;
+                    border-radius: 2px;
+                }
+            """)
+        else:
+            # 低于阈值，显示橙色
+            self.volume_bar.setStyleSheet("""
+                QProgressBar {
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    background-color: #f0f0f0;
+                    height: 20px;
+                }
+                QProgressBar::chunk {
+                    background-color: #FF9800;
+                    border-radius: 2px;
+                }
+            """)
+        
+        # 更新阈值指示器位置
+        threshold_percent = int(threshold * 100)
+        self.threshold_indicator.setText(f"← 阈值({threshold:.2f})")
+    
+    def closeEvent(self, event):
+        """窗口关闭事件"""
+        # 停止音频监测
+        self.stop_monitoring()
+        
+        if self.audio_service:
+            self.audio_service.stop()
+        
+        event.accept()

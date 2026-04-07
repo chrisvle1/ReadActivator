@@ -96,10 +96,14 @@ class ConfigService:
         Returns:
             [(索引, 设备名称), ...]
         """
-        # Phase 1 暂时返回模拟数据
-        # Phase 2 将使用 sounddevice 获取实际设备列表
-        return [
-            (0, "默认麦克风"),
-            (1, "麦克风 (Realtek Audio)"),
-            (2, "麦克风阵列 (Intel SST)")
-        ]
+        # Phase 2: 使用 sounddevice 获取实际设备列表
+        try:
+            from services.audio_service import AudioService
+            devices = AudioService.get_device_list()
+            
+            # 只返回索引和名称
+            return [(idx, name) for idx, name, _ in devices]
+        except Exception as e:
+            print(f"获取麦克风列表失败: {e}")
+            # 失败时返回默认设备
+            return [(0, "默认麦克风")]
