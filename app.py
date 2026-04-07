@@ -1,9 +1,12 @@
 """
 小学生朗读激励抽奖应用 - 主入口
 Phase 3: 实现双界面切换
+Phase 5: 添加程序图标
 """
 import sys
+import os
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon
 from ui.config_window import ConfigWindow
 from ui.activity_window import ActivityWindow
 
@@ -54,8 +57,18 @@ def main():
     """应用主入口"""
     app = QApplication(sys.argv)
     
+    # Phase 5: 设置应用图标
+    icon_path = os.path.join(os.path.dirname(__file__), 'read.ico')
+    if os.path.exists(icon_path):
+        app.setWindowIcon(QIcon(icon_path))
+    
     # 设置应用样式
     app.setStyle('Fusion')
+    
+    # 设置应用信息
+    app.setApplicationName("小学生朗读激励抽奖")
+    app.setApplicationVersion("1.0.0")
+    app.setOrganizationName("ReadActivator")
     
     # 创建应用控制器
     controller = AppController()

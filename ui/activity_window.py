@@ -2,14 +2,16 @@
 活动界面窗口
 Phase 3: 实现二层活动页与抽奖逻辑
 Phase 4: 增强揭晓动画与视觉效果
+Phase 5: 添加图标支持和错误处理
 """
+import os
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QPushButton, QProgressBar, QMessageBox, QFrame,
     QGraphicsBlurEffect, QGraphicsOpacityEffect
 )
 from PySide6.QtCore import Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
-from PySide6.QtGui import QFont, QColor, QPalette
+from PySide6.QtGui import QFont, QColor, QPalette, QIcon
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
 from services.audio_service import AudioService
@@ -55,6 +57,11 @@ class ActivityWindow(QMainWindow):
         """初始化UI"""
         self.setWindowTitle("小学生朗读激励抽奖 - 活动进行中")
         self.setMinimumSize(900, 700)
+        
+        # Phase 5: 设置窗口图标
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'read.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
         
         # 创建中心部件
         central_widget = QWidget()

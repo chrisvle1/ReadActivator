@@ -1,6 +1,7 @@
 """
 音频采集服务
 Phase 2: 实现麦克风音频采集和音量计算
+Phase 5: 增强异常处理和兜底逻辑
 """
 import numpy as np
 import sounddevice as sd
@@ -57,9 +58,15 @@ class AudioService:
                     name = device['name']
                     channels = device['max_input_channels']
                     devices.append((idx, name, channels))
+            
+            # Phase 5: 如果没有找到任何输入设备，返回默认设备
+            if not devices:
+                print("警告: 未找到任何音频输入设备，使用默认设备")
+                devices.append((0, "默认麦克风", 1))
+                
         except Exception as e:
             print(f"获取设备列表失败: {e}")
-            # 返回默认设备
+            # 返回默认设备作为兜底
             devices.append((0, "默认麦克风", 1))
         
         return devices
@@ -73,8 +80,12 @@ class AudioService:
             默认设备索引
         """
         try:
-            return sd.query_devices(kind='input')['index']
-        except Exception:
+            device = sd.query_devices(kind='input')
+            if device and 'index' in device:
+                return device['index']
+            return 0
+        except Exception as e:
+            print(f"获取默认输入设备失败: {e}，使用设备索引0")
             return 0
     
     def calculate_volume(self, audio_data: np.ndarray) -> float:
@@ -87,14 +98,22 @@ class AudioService:
         Returns:
             归一化的音量值 (0.0 - 1.0)
         """
-        # 计算均方根(RMS)
-        rms = np.sqrt(np.mean(audio_data**2))
-        
-        # 归一化到 0.0 - 1.0 范围
-        # 通常RMS值在 0-0.5 之间，我们将其映射到 0-1
-        volume = min(rms * 2.0, 1.0)
-        
-        return float(volume)
+        try:
+            # Phase 5: 添加数据有效性检查
+            if audio_data is None or len(audio_data) == 0:
+                return 0.0
+            
+            # 计算均方根(RMS)
+            rms = np.sqrt(np.mean(audio_data**2))
+            
+            # 归一化到 0.0 - 1.0 范围
+            # 通常RMS值在 0-0.5 之间，我们将其映射到 0-1
+            volume = min(rms * 2.0, 1.0)
+            
+            return float(volume)
+        except Exception as e:
+            print(f"计算音量失败: {e}")
+            return 0.0
     
     def smooth_volume(self, volume: float) -> float:
         """
@@ -128,16 +147,23 @@ class AudioService:
         if status:
             print(f"音频流状态: {status}")
         
-        # 计算当前音量
-        audio_data = indata[:, 0] if indata.ndim > 1 else indata
-        self.current_volume = self.calculate_volume(audio_data)
-        
-        # 平滑处理
-        self.smoothed_volume = self.smooth_volume(self.current_volume)
-        
-        # 调用音量回调
-        if self.volume_callback:
-            self.volume_callback(self.smoothed_volume)
+        try:
+            # Phase 5: 添加数据有效性检查
+            if indata is None or len(indata) == 0:
+                return
+            
+            # 计算当前音量
+            audio_data = indata[:, 0] if indata.ndim > 1 else indata
+            self.current_volume = self.calculate_volume(audio_data)
+            
+            # 平滑处理
+            self.smoothed_volume = self.smooth_volume(self.current_volume)
+            
+            # 调用音量回调
+            if self.volume_callback:
+                self.volume_callback(self.smoothed_volume)
+        except Exception as e:
+            print(f"音频回调处理失败: {e}")
     
     def start(self, volume_callback: Optional[Callable[[float], None]] = None):
         """
@@ -162,10 +188,17 @@ class AudioService:
             self.stream.start()
             self.is_running = True
             print(f"音频采集已启动，设备索引: {self.device_index}")
-        except Exception as e:
-            print(f"启动音频采集失败: {e}")
+        except sd.PortAudioError as e:
+            # Phase 5: 更详细的错误处理
+            error_msg = f"无法访问音频设备 {self.device_index}，可能设备不可用或被占用"
+            print(f"{error_msg}: {e}")
             self.is_running = False
-            raise
+            raise RuntimeError(error_msg) from e
+        except Exception as e:
+            error_msg = f"启动音频采集时发生未知错误"
+            print(f"{error_msg}: {e}")
+            self.is_running = False
+            raise RuntimeError(error_msg) from e
     
     def stop(self):
         """停止音频采集"""
@@ -185,6 +218,9 @@ class AudioService:
             print("音频采集已停止")
         except Exception as e:
             print(f"停止音频采集失败: {e}")
+            # Phase 5: 即使停止失败，也要重置状态
+            self.is_running = False
+            self.stream = None
     
     def set_device(self, device_index: int):
         """
@@ -201,7 +237,10 @@ class AudioService:
         self.device_index = device_index
         
         if was_running:
-            self.start(self.volume_callback)
+            try:
+                self.start(self.volume_callback)
+            except Exception as e:
+                print(f"切换设备后重新启动失败: {e}")
     
     def get_current_volume(self) -> float:
         """

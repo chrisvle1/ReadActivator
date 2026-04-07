@@ -1,7 +1,9 @@
 """
 配置界面窗口
 Phase 2: 添加实时音量监测功能
+Phase 5: 添加图标支持
 """
+import os
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QLabel, QComboBox, QDoubleSpinBox, QPushButton,
@@ -10,7 +12,7 @@ from PySide6.QtWidgets import (
     QProgressBar
 )
 from PySide6.QtCore import Qt, Signal, QTimer
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QIcon
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
 from services.config_service import ConfigService
@@ -43,6 +45,11 @@ class ConfigWindow(QMainWindow):
         """初始化UI"""
         self.setWindowTitle("小学生朗读激励抽奖 - 配置")
         self.setMinimumSize(800, 600)
+        
+        # Phase 5: 设置窗口图标
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'read.ico')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
         
         # 创建中心部件
         central_widget = QWidget()
