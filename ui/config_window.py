@@ -4,15 +4,15 @@ Phase 2: 添加实时音量监测功能
 Phase 5: 添加图标支持
 """
 import os
-from PySide6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
+from PySide2.QtWidgets import (
+    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QComboBox, QDoubleSpinBox, QPushButton,
     QTableWidget, QTableWidgetItem, QHeaderView,
     QMessageBox, QGroupBox, QFormLayout, QSpinBox,
     QProgressBar
 )
-from PySide6.QtCore import Qt, Signal, QTimer
-from PySide6.QtGui import QFont, QIcon
+from PySide2.QtCore import Qt, Signal, QTimer
+from PySide2.QtGui import QFont, QIcon
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
 from services.config_service import ConfigService

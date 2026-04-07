@@ -5,8 +5,8 @@ Phase 5: 添加程序图标
 """
 import sys
 import os
-from PySide6.QtWidgets import QApplication
-from PySide6.QtGui import QIcon
+from PySide2.QtWidgets import QApplication
+from PySide2.QtGui import QIcon
 from ui.config_window import ConfigWindow
 from ui.activity_window import ActivityWindow
 

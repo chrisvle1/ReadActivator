@@ -5,13 +5,13 @@ Phase 4: 增强揭晓动画与视觉效果
 Phase 5: 添加图标支持和错误处理
 """
 import os
-from PySide6.QtWidgets import (
+from PySide2.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QPushButton, QProgressBar, QMessageBox, QFrame,
     QGraphicsBlurEffect, QGraphicsOpacityEffect
 )
-from PySide6.QtCore import Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
-from PySide6.QtGui import QFont, QColor, QPalette, QIcon
+from PySide2.QtCore import Qt, QTimer, Signal, QPropertyAnimation, QEasingCurve
+from PySide2.QtGui import QFont, QColor, QPalette, QIcon
 from models.config_model import AppConfig
 from models.prize_model import PrizeItem
 from services.audio_service import AudioService
