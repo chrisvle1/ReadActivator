@@ -1,0 +1,345 @@
+
+**** Build of configuration Debug for project SPD3_Boot ****
+
+"D:\\WworkSoft\\smartcode\\ctc\\bin\\amk" -j24 user_post_build -a 
+Compiling Gp_Ssw2G_Ext.c
+Compiling Gp_Ssw2GTc0.c
+Compiling Main.c
+Compiling CanIf.c
+Compiling CanSM.c
+Compiling CanSM_Lcfg.c
+Compiling CanTp_Cbk.c
+Compiling CanTp_PBcfg.c
+Compiling CanTp.c
+Compiling Uds_User_CommunicationControlCallback.c
+Compiling Uds_User_ControlDTCSettingCallback.c
+Compiling Uds_User_DiagnosticSessionControlCallback.c
+Compiling Uds_User_ECUResetCallback.c
+Compiling Uds_User_ReadDataByIdentifierCallback.c
+Compiling Uds_User_RequestDownloadCallback.c
+Compiling Uds_User_RequestTransferExitCallback.c
+Compiling Uds_User_RoutineControlCallback.c
+Compiling Uds_User_SecurityAccessCallback.c
+ctc W536: ["..\BootCtrl\Gp_Ssw2G\Gp_Ssw2GTc0.c" 486/13] unused static function "_Gp_StartUpSoftware_Phase2_ColdReset"
+ctc W536: ["..\BootCtrl\Gp_Ssw2G\Gp_Ssw2GTc0.c" 501/13] unused static function "_Gp_StartUpSoftware_Phase2_WarmReset"
+0 errors, 2 warnings
+Compiling Uds_User_TesterPresentCallback.c
+Compiling Uds_User_TransferDataCallback.c
+Compiling Uds_User_WriteDataByIdentifierCallback.c
+Compiling Uds_Dcm_CommunicationControl.c
+Compiling Uds_Dcm_ControlDTCSetting.c
+Compiling Uds_Dcm_DiagnosticSessionControl.c
+Compiling Uds_Dcm_Drv.c
+Compiling Uds_Dcm_ECUReset.c
+Compiling Uds_Dcm_ReadDataByIdentifier.c
+Compiling Uds_Dcm_RequestDownload.c
+Compiling Uds_Dcm_RequestTransferExit.c
+Compiling Uds_Dcm_RoutineControl.c
+Compiling Uds_Dcm_SecurityAccess.c
+Compiling Uds_Dcm_TesterPresent.c
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_ReadDataByIdentifierCallback.c" 595/7] implicit declaration of function "Gp_Boot_IntrCheckApplValid"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_ReadDataByIdentifierCallback.c" 595/33] calling a function without a prototype
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_ReadDataByIdentifierCallback.c" 596/37] calling a function without a prototype
+0 errors, 3 warnings
+Compiling Uds_Dcm_TpIf.c
+Compiling Uds_Dcm_TransferData.c
+Compiling Uds_Dcm_WriteDataByIdentifier.c
+Compiling Gp_EcuM.c
+ctc W537: ["..\Bsw\Dcm\Cfg\Uds_User_SecurityAccessCallback.c" 182/8] unused variable "gretval_1"
+ctc W537: ["..\Bsw\Dcm\Cfg\Uds_User_SecurityAccessCallback.c" 262/8] unused variable "gretval_2"
+ctc W537: ["..\Bsw\Dcm\Cfg\Uds_User_SecurityAccessCallback.c" 266/8] unused variable "ui8_Uds_Key"
+0 errors, 3 warnings
+Compiling Gp_EcuM_Core1.c
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 620/4] implicit declaration of function "Gp_Boot_P2ServerResponsePending"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 620/35] calling a function without a prototype
+ctc W523: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 624/62] pointers to different types at argument #2
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1146/2] implicit declaration of function "Gp_Boot_P2ServerResponsePending"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1146/33] calling a function without a prototype
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1292/4] implicit declaration of function "Gp_Boot_P2ServerResponsePending"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1292/35] calling a function without a prototype
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1555/3] implicit declaration of function "Gp_Boot_P2ServerResponsePending"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 1555/34] calling a function without a prototype
+ctc W537: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 787/23] unused variable "Gp_Mem_BlkHeaderPtr"
+ctc W537: ["..\Bsw\Dcm\Cfg\Uds_User_RoutineControlCallback.c" 788/9] unused variable "Gp_Mem_BlkEnder"
+0 errors, 11 warnings
+Compiling Gp_EcuM_Core2.c
+Compiling Gp_Boot.c
+Compiling Gp_BootCfg.c
+Compiling Gp_Hw.c
+ctc W505: ["..\Bsw\Dcm\Cfg\Uds_User_WriteDataByIdentifierCallback.c" 68/3] implicit declaration of function "Gp_Boot_P2ServerResponsePending"
+ctc W577: ["..\Bsw\Dcm\Cfg\Uds_User_WriteDataByIdentifierCallback.c" 68/34] calling a function without a prototype
+ctc W523: ["..\Bsw\Dcm\Cfg\Uds_User_WriteDataByIdentifierCallback.c" 86/24] pointers to different types at argument #1
+ctc W523: ["..\Bsw\Dcm\Cfg\Uds_User_WriteDataByIdentifierCallback.c" 101/57] pointers to different types at argument #2
+0 errors, 4 warnings
+Compiling Gp_PowerCtrl.c
+Compiling Gp_FCT.c
+Compiling Gp_apnv.c
+Compiling Gp_Version_Parameter.c
+Compiling Li_QSM.c
+Compiling Gp_Reset.c
+Compiling Gp_Trap_Tc0.c
+Compiling cdd_Hsm.c
+Compiling CsmUserCallout.c
+Compiling Gp_Aurix2GUcb.c
+Compiling Gp_Aurix2GUcb_PBCfg.c
+Compiling Gp_CpuFunc2G.c
+Compiling Gp_CpuFunc2G_PBcfg.c
+ctc W508: ["..\Cdd\cdd_hsm\cdd_Hsm.c" 1/1] empty source file
+0 errors, 1 warnings
+Compiling Gp_CsaMonitor.c
+Compiling Gp_CsaMonitor_PBCfg.c
+Compiling Gp_GeneralLib.c
+Compiling Gp_Pms2G.c
+Compiling Gp_Pms2G_Callout.c
+Compiling Gp_Pms2G_PBcfg.c
+Compiling Gp_SOTA.c
+Compiling Gp_SOTA_PBCfg.c
+Compiling Gp_TimeCal.c
+ctc W537: ["..\Bsw\Gp_BootManager\Gp_Boot\Gp_Boot.c" 576/16] unused variable "Copy_Reset_Delay"
+0 errors, 1 warnings
+ctc W557: ["..\Cdd\Gp_Pms2G_V1.00\Gp_Pms2G_Callout.c" 80/10] possible infinite loop
+0 errors, 1 warnings
+Compiling Gp_WdtLib2G.c
+Compiling Li_CanTrcv.c
+Compiling Li_FlashAurix3G.c
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 90/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 115/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 140/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 165/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 190/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 215/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 240/10] possible infinite loop
+ctc W557: ["..\BswSrv\Gp_Trap\Gp_Trap_Tc0.c" 265/10] possible infinite loop
+0 errors, 8 warnings
+Compiling TCAN1145.c
+ctc W560: ["..\Bsw\QSM\Li_QSM.c" 550/16] possible truncation at implicit conversion to type "unsigned char"
+ctc W560: ["..\Bsw\QSM\Li_QSM.c" 570/16] possible truncation at implicit conversion to type "unsigned char"
+0 errors, 2 warnings
+Compiling CanIf_Lcfg.c
+Compiling Can_17_McmCan_PBcfg.c
+Compiling Dio_Lcfg.c
+Compiling Mcu_17_TimerIp_Cfg.c
+ctc W505: ["..\Cdd\Li_FlashAurix3G\Li_FlashAurix3G.c" 241/5] implicit declaration of function "Mem_17_Nvm_MainFunction"
+ctc W577: ["..\Cdd\Li_FlashAurix3G\Li_FlashAurix3G.c" 241/28] calling a function without a prototype
+0 errors, 2 warnings
+Compiling Mcu_PBcfg.c
+Compiling Mem_17_Nvm_Cfg.c
+Compiling Mem_17_Nvm_Data.c
+Compiling Port_PBcfg.c
+Compiling Spi_PBcfg.c
+Compiling Can_17_McmCan.c
+Compiling Dio.c
+Compiling Can_17_McmCan_Irq.c
+Compiling Gtm_Irq.c
+Compiling Irq_Can.c
+Compiling Mcu.c
+Compiling Mem_17_Nvm.c
+Compiling Mem_17_Nvm_Common.c
+ctc W523: ["..\Mcal\Dio\ssc\src\Dio.c" 725/23] pointers to different types at assignment
+ctc W523: ["..\Mcal\Dio\ssc\src\Dio.c" 869/23] pointers to different types at assignment
+ctc W523: ["..\Mcal\Dio\ssc\src\Dio.c" 1057/23] pointers to different types at assignment
+0 errors, 3 warnings
+Compiling Mem_17_Nvm_EFlash.c
+Compiling Mem_17_Nvm_RRAM.c
+Compiling Port.c
+Compiling Spi.c
+Compiling TimeOsAurix2G.c
+Compiling TimeOsAurix2G_Callout.c
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 1712/9] implicit declaration of function "CanIf_ControllerModeIndication"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 1712/39] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6510/9] implicit declaration of function "CanIf_TxConfirmation"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6510/29] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6626/9] implicit declaration of function "CanIf_TxConfirmation"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6626/29] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6912/7] implicit declaration of function "CanIf_TxConfirmation"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 6912/27] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 7884/9] implicit declaration of function "CanIf_RxIndication"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 7884/27] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 7997/7] implicit declaration of function "CanIf_ControllerBusOff"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 7997/29] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 10588/13] implicit declaration of function "CanIf_ControllerModeIndication"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 10588/43] calling a function without a prototype
+ctc W505: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 10625/13] implicit declaration of function "CanIf_ControllerModeIndication"
+ctc W577: ["..\Mcal\Can_17_McmCan\ssc\src\Can_17_McmCan.c" 10625/43] calling a function without a prototype
+0 errors, 16 warnings
+Compiling TimeOsAurix2G_Cfg.c
+Compiling TimeOsAurix2G_Core0Task.c
+Compiling Det.c
+ctc W504: ["..\Mcal\Port\ssc\src\Port.c" 52/10] macro "RMA_TOTAL_EXEC_UNITS_AVAILABLE" redefined
+ctc I801: ["D:\WP\wp17\Boot\Boot\TKProj\ZCU21G4_CB\Conf\McalGen\inc\Port_Data.h" 46/9] previous definition of macro "RMA_TOTAL_EXEC_UNITS_AVAILABLE"
+ctc W523: ["..\Mcal\Port\ssc\src\Port.c" 339/17] pointers to different types at assignment
+ctc W523: ["..\Mcal\Port\ssc\src\Port.c" 482/16] pointers to different types at assignment
+ctc W523: ["..\Mcal\Port\ssc\src\Port.c" 2444/24] pointers to different types at assignment
+ctc W523: ["..\Mcal\Port\ssc\src\Port.c" 2445/24] pointers to different types at assignment
+0 errors, 5 warnings
+Compiling Mcal_SafetyError.c
+Auto format to Li_HWAP_FBL_Merged.hex
+.\..\fbl_format.exe -p
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 722/69] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 729/62] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 735/66] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 743/71] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 750/68] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 1243/71] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 1257/76] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 1267/72] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 1341/70] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 8783/61] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Spi\ssc\src\Spi.c" 8796/63] pointers to different types at argument #1
+0 errors, 11 warnings
+ctc W557: ["..\Stub\Autosar_Srv\Det.c" 82/10] possible infinite loop
+ctc W557: ["..\Stub\Autosar_Srv\Det.c" 93/10] possible infinite loop
+0 errors, 2 warnings
+[Input]Usr input is [] [('-p', '')]
+[fbl]There is no fbl file 
+
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 952/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 965/54] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 968/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 985/54] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1095/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1108/54] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1112/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1127/54] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1145/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1151/54] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1207/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1224/63] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1233/60] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1237/61] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1247/62] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1254/59] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1258/55] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1267/63] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1276/60] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 1280/61] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 2379/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 2385/49] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 3180/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 3187/49] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 3190/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 3196/49] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 3995/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4007/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4024/48] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4037/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4057/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4114/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4128/48] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4139/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4163/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4174/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4320/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4388/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4745/45] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4757/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4776/41] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4781/41] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4789/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4812/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4817/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4824/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4837/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 4840/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5195/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5201/48] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5212/55] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5221/52] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5224/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5234/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5240/51] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5244/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5254/55] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5263/52] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5266/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5277/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5567/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5570/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5577/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5589/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5592/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5599/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5613/45] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5616/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5623/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5636/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5639/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5646/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5667/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5670/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5677/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5689/43] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5692/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5699/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5713/45] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5716/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5723/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5736/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5739/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5746/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5788/49] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5798/46] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5843/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5852/47] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5856/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5867/47] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5874/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5954/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5961/44] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5971/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5981/49] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 5994/48] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6009/47] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6024/49] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6032/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6045/52] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6062/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6076/45] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6083/49] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6091/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6384/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6442/48] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6467/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6551/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6589/50] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6884/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6907/48] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6957/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 6973/50] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7037/50] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7103/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7110/72] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7122/69] pointers to different types at argument #2
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7186/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7197/57] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7214/59] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7244/54] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7309/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7371/51] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7387/53] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7526/44] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7543/46] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7586/44] pointers to different types at argument #1
+ctc W523: ["..\Mcal\Mcu\ssc\src\Mcu.c" 7603/46] pointers to different types at argument #1
+0 errors, 128 warnings
+ctc W505: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 92/2] implicit declaration of function "Can_17_McmCan_MainFunction_BusOff"
+ctc W577: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 92/35] calling a function without a prototype
+ctc W505: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 93/2] implicit declaration of function "Can_17_McmCan_MainFunction_Wakeup"
+ctc W577: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 93/35] calling a function without a prototype
+ctc W505: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 94/2] implicit declaration of function "Can_17_McmCan_MainFunction_Mode"
+ctc W577: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 94/33] calling a function without a prototype
+ctc W505: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 96/2] implicit declaration of function "CanSM_MainFunction"
+ctc W577: ["..\Os\TimeOsAurix2G\Cfg\TimeOsAurix2G_Core0Task.c" 96/20] calling a function without a prototype
+0 errors, 8 warnings
+Linking to SPD3_Boot.elf
+amk E452: ["makefile" 63/0] target 'SPD3_Boot.elf' returned exit code 1
+amk E451: make stopped
+
+Time consumed: 819776 ms
+**** End of build ****
+
+Tool info: 
+TASKING SmartCode v10.3r1 - TriCore assembler Build 24092244
+TASKING SmartCode v10.3r1 - program builder Build 24092244
+TASKING SmartCode v10.3r1 - TriCore control program Build 24092244
+TASKING SmartCode v10.3r1 - TriCore C compiler Build 25020587 SN-09488480
